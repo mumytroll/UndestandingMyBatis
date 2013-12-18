@@ -6,13 +6,22 @@
     <context:annotation-config />
     <context:component-scan base-package="foo.bar"/>
 
-  <!-- Oracle подключение -->
+  <context:property-placeholder location="oracle.properties"/>
 
+  <!-- Oracle подключение -->
+<!--
   <bean id="oracleThinDataSource" class="oracle.jdbc.pool.OracleDataSource">
     <property name="URL"      value="${oracle.url}"/>
     <property name="user"     value="${oracle.user}"/>
     <property name="password" value="${oracle.password}"/>
   </bean>
+-->
+
+    <bean id="oracleThinDataSource" class="oracle.jdbc.pool.OracleDataSource">
+      <property name="URL"      value="${oracle.url}"/>
+      <property name="user"     value="${oracle.user}"/>
+      <property name="password" value="${oracle.password}"/>
+    </bean>
 
   <!-- Oracle фабрика сессий для MyBatis -->
   <bean id="oracleSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
