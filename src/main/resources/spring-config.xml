@@ -6,17 +6,16 @@
     <context:annotation-config />
     <context:component-scan base-package="foo.bar"/>
 
+  <!--
+  Этого файла нет в гите, ибо нефиг.
+  Внутри его:
+  oracle.url=jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=<имя хоста>)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=<имя базы>)))
+  oracle.user=<логин>
+  oracle.password=<пароль>
+  -->
   <context:property-placeholder location="oracle.properties"/>
 
   <!-- Oracle подключение -->
-<!--
-  <bean id="oracleThinDataSource" class="oracle.jdbc.pool.OracleDataSource">
-    <property name="URL"      value="${oracle.url}"/>
-    <property name="user"     value="${oracle.user}"/>
-    <property name="password" value="${oracle.password}"/>
-  </bean>
--->
-
     <bean id="oracleThinDataSource" class="oracle.jdbc.pool.OracleDataSource">
       <property name="URL"      value="${oracle.url}"/>
       <property name="user"     value="${oracle.user}"/>
@@ -26,6 +25,7 @@
   <!-- Oracle фабрика сессий для MyBatis -->
   <bean id="oracleSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
     <property name="dataSource" ref="oracleThinDataSource"/>
+    <!-- Это где лежать *.xml -->
     <property name="mapperLocations"    value="classpath:foo/bar/**/*.xml"/>
   </bean>
 

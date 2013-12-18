@@ -24,13 +24,17 @@ public class OracleArrayDo {
   private OracleArrayMapper oracleArrayMapper;
 
   public String returnArrayToString() {
+    // Только для map можно получить out параметры!
     Map<String, Object> parameters = new HashMap<String, Object>();
+    // Это входной список строк, который будет обработна в PL/SQL кодею
     List<String> strings = new ArrayList<String>();
     strings.add("Строка один");
     strings.add("Строка два");
     strings.add("Строка три");
     parameters.put("in", strings);
+    //Вызываем.
     oracleArrayMapper.doArray(parameters);
+    //И преобразуем в строку!
     return parameters.get("out").toString();
   }
 

@@ -4,7 +4,6 @@ import oracle.sql.ARRAY;
 import oracle.sql.ArrayDescriptor;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
-import sun.security.x509.AttributeNameEnumeration;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,6 +21,8 @@ public class OracleArrayHandler implements TypeHandler<List<String>> {
 
   @Override
   public void setParameter(PreparedStatement preparedStatement, int i, List<String> strings, JdbcType jdbcType) throws SQLException {
+    // Этот медот отработает тогда когда будет проводиться биндовка входных параметров в блоке pl/sql
+    // v_in := #{map.in, jdbcType=ARRAY, javaType=OBJECT, jdbcTypeName="T_FOR_TEST_MYBATIS", typeHandler=foo.bar.OracleArrayHandler, mode=IN};
     // Это стандартное преобразование типов Java в типы оракла
     Connection conn = preparedStatement.getConnection();
     /* Это наименование типа в оракле!
@@ -55,6 +56,9 @@ public class OracleArrayHandler implements TypeHandler<List<String>> {
 
   @Override
   public List<String> getResult(CallableStatement callableStatement, int i) throws SQLException {
+    // Этот медот отработает тогда когда будет проводиться биндовка выходных параметров в блоке pl/sql
+    // #{map.out, jdbcType=ARRAY, javaType=OBJECT, jdbcTypeName="T_FOR_TEST_MYBATIS", typeHandler=foo.bar.OracleArrayHandler, mode=OUT} :=  v_out;
+    // Мы знаем что будет массив, поэтому отрабатываем так, хотя в общем случае можно сделать и универсальное решение.
     String[] x = (String[]) ((ARRAY) callableStatement.getObject(i)).getArray();
     List<String> result = new ArrayList<String>(x != null ? x.length : 0);
     if (x != null) {

@@ -14,6 +14,7 @@
 
   <dependencies>
     <!-- Oracle -->
+    <!-- Этот jar для взаимодействия с бд -->
     <dependency>
       <groupId>com.oracle</groupId>
       <artifactId>ojdbc6</artifactId>
@@ -21,6 +22,7 @@
       <type>jar</type>
     </dependency>
 
+    <!-- Этот jar необходим для корретной отработки со строками в типах оракла, без него будут ??? а не текст -->
     <dependency>
       <groupId>com.oracle</groupId>
       <artifactId>orai18n</artifactId>

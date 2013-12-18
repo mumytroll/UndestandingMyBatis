@@ -12,5 +12,6 @@ import java.util.Map;
  * @since 001.00
  */
 public interface OracleArrayMapper {
+  // Это интерфейс для мапера. Сам мапер в xml!
   public void doArray(@Param("map") Map<String, Object> map);
 }
