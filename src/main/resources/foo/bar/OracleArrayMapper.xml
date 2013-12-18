@@ -9,6 +9,7 @@
         v_in  t_for_test_mybatis := t_for_test_mybatis();
         v_out t_for_test_mybatis := t_for_test_mybatis();
       begin
+        v_in := #{map.in, jdbcType=ARRAY, javaType=OBJECT, jdbcTypeName="T_FOR_TEST_MYBATIS", typeHandler=foo.bar.OracleArrayHandler, mode=IN};
         v_out.extend(v_in.count());
         if v_in.count() > 0 then
           for v_idx in v_in.first .. v_in.last loop

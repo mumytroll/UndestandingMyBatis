@@ -25,8 +25,8 @@ public class OracleArrayHandler implements TypeHandler<List<String>> {
     String[] stringArray = new String[0];
     if  (strings != null && strings.size()>0){
       stringArray = new String[strings.size()];
-      for(i = 0; i < strings.size() ; i++){
-        stringArray[i] = strings.get(i);
+      for(int idx = 0; idx < strings.size() ; idx++){
+        stringArray[idx] = strings.get(idx);
       }
     }
     ARRAY oracleArray = new ARRAY(desc, conn, stringArray);
