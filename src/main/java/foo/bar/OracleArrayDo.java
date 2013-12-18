@@ -15,19 +15,21 @@ import java.util.Map;
  * @version 001.00
  * @since 001.00
  */
+@SuppressWarnings("SpringJavaAutowiringInspection")
 @Component
 public class OracleArrayDo {
 
+  // Это бин отработает MyBatis
   @Autowired
   private OracleArrayMapper oracleArrayMapper;
 
-  public String sayHello() {
+  public String returnArrayToString() {
     Map<String, Object> parameters = new HashMap<String, Object>();
     List<String> strings = new ArrayList<String>();
     strings.add("Строка один");
     strings.add("Строка два");
     strings.add("Строка три");
-    parameters.put("in",strings);
+    parameters.put("in", strings);
     oracleArrayMapper.doArray(parameters);
     return parameters.get("out").toString();
   }

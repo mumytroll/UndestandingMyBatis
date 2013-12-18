@@ -9,12 +9,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring-config.xml")
-public class SpringAppTests {
+public class OracleArrayDoTests {
     @Autowired
-    private HelloService helloService;
+    private OracleArrayDo oracleArrayDo;
 
     @Test
     public void testSayHello() {
-        Assert.assertEquals("Hello world!", helloService.sayHello());
+        Assert.assertEquals("[Строка один Это русский текст., Строка два Это русский текст., Строка три Это русский текст., Эта новая строка]", oracleArrayDo.returnArrayToString());
     }
 }

@@ -7,11 +7,8 @@ public class HelloApp {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
 
-        HelloService helloService = context.getBean(HelloService.class);
-        System.out.println(helloService.sayHello());
-
         OracleArrayDo oracleArrayDo =   context.getBean(OracleArrayDo.class);
-        System.out.println(oracleArrayDo.sayHello());
+        System.out.println(oracleArrayDo.returnArrayToString());
 
     }
 }
