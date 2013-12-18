@@ -5,4 +5,27 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     <context:annotation-config />
     <context:component-scan base-package="foo.bar"/>
+
+  <!-- Oracle подключение -->
+
+  <bean id="oracleThinDataSource" class="oracle.jdbc.pool.OracleDataSource">
+    <property name="URL"      value="${oracle.url}"/>
+    <property name="user"     value="${oracle.user}"/>
+    <property name="password" value="${oracle.password}"/>
+  </bean>
+
+  <!-- Oracle фабрика сессий для MyBatis -->
+  <bean id="oracleSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="oracleThinDataSource"/>
+    <property name="mapperLocations"    value="classpath:foo/bar/**/*.xml"/>
+  </bean>
+
+  <!-- Сканирует мапперы и autowire их (Oracle) -->
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="foo.bar"/>
+    <property name="sqlSessionFactoryBeanName" value="oracleSessionFactory"/>
+  </bean>
+
+
+
 </beans>
