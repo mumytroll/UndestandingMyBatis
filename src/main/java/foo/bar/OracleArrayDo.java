@@ -22,7 +22,7 @@ public class OracleArrayDo {
   public String sayHello() {
     Map<String, Object> parameters = new HashMap<String, Object>();
     oracleArrayMapper.doArray(parameters);
-    return "Hello world!";
+    return parameters.get("out").toString();
   }
 
 }

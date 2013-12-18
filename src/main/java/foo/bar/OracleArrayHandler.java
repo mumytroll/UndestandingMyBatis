@@ -1,12 +1,13 @@
 package foo.bar;
 
+import oracle.sql.ARRAY;
+import oracle.sql.ArrayDescriptor;
 import org.apache.ibatis.type.JdbcType;
 import org.apache.ibatis.type.TypeHandler;
+import sun.security.x509.AttributeNameEnumeration;
 
-import java.sql.CallableStatement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,17 @@ import java.util.List;
 public class OracleArrayHandler implements TypeHandler<List<String>> {
   @Override
   public void setParameter(PreparedStatement preparedStatement, int i, List<String> strings, JdbcType jdbcType) throws SQLException {
-    //To change body of implemented methods use File | Settings | File Templates.
+    Connection conn = preparedStatement.getConnection();
+    ArrayDescriptor desc = ArrayDescriptor.createDescriptor("T_FOR_TEST_MYBATIS", conn);
+    String[] stringArray = new String[0];
+    if  (strings != null && strings.size()>0){
+      stringArray = new String[strings.size()];
+      for(i = 0; i < strings.size() ; i++){
+        stringArray[i] = strings.get(i);
+      }
+    }
+    ARRAY oracleArray = new ARRAY(desc, conn, stringArray);
+    preparedStatement.setArray(i, oracleArray);
   }
 
   @Override
@@ -34,6 +45,11 @@ public class OracleArrayHandler implements TypeHandler<List<String>> {
 
   @Override
   public List<String> getResult(CallableStatement callableStatement, int i) throws SQLException {
-    return null;  //To change body of implemented methods use File | Settings | File Templates.
+    String[] x = (String[]) ((ARRAY) callableStatement.getObject(i)).getArray();
+    List<String> result = new ArrayList<String>(x != null ? x.length : 0);
+    for (String row: x){
+      result.add(row);
+    }
+    return result;
   }
 }

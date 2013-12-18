@@ -15,7 +15,9 @@
             v_out(v_idx) := v_in(v_idx) || ' Это русский текст.';
           end loop;
         end if;
-        #{map.result, jdbcType=ARRAY, javaType=OBJECT, jdbcTypeName="T_FOR_TEST_MYBATIS", typeHandler=foo.bar.OracleArrayHandler, mode=OUT} :=  v_out;
+        v_out.extend(1);
+        v_out(v_out.last()) := 'Эта новая строка';
+        #{map.out, jdbcType=ARRAY, javaType=OBJECT, jdbcTypeName="T_FOR_TEST_MYBATIS", typeHandler=foo.bar.OracleArrayHandler, mode=OUT} :=  v_out;
       end;
       ]]>
   </update>
